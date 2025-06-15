@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+     "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node app.js",
     "dev": "nodemon app.js"
   },
   "keywords": [],
