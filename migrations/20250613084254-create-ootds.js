@@ -23,10 +23,9 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER, // Changed to INTEGER to match the Users table PK
-        // Removed allowNull: false to make it nullable
         references: {
           model: 'Users', // Table name reference
-          key: 'id'      // Column name reference
+          key: 'id'       // Column name reference
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
