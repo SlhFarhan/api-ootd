@@ -9,7 +9,7 @@ module.exports = {
         namaOutfit: 'Casual Weekend Look',
         deskripsi: 'A comfortable and stylish outfit for a relaxing weekend.',
         imageId: 'sample-image-1.jpg', // Make sure this image exists in /uploads
-        userId: 1, // Assumes a user with ID 1 exists
+        userId: null, // Assumes a user with ID 1 exists
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -18,7 +18,7 @@ module.exports = {
         namaOutfit: 'Business Casual Attire',
         deskripsi: 'A professional yet comfortable look for the modern workplace.',
         imageId: 'sample-image-2.jpg', // Make sure this image exists in /uploads
-        userId: 1, // Assumes a user with ID 1 exists
+        userId: null, // Assumes a user with ID 1 exists
         createdAt: new Date(),
         updatedAt: new Date()
       }
