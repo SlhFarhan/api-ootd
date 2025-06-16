@@ -53,22 +53,31 @@ exports.updateOotd = async (req, res) => {
             return res.status(403).send({ message: "Forbidden: You don't own this OOTD" });
         }
         
-        let imageId = ootd.imageId;
+        // Asumsi nama kolom di database adalah 'gambar' yang berisi URL lengkap
+        let imageUrl = ootd.gambar; 
+
         if (req.file) {
-            // Delete old image if a new one is uploaded
-            fs.unlink(`uploads/${ootd.imageId}`, (err) => {
-                if (err) console.error("Gagal menghapus file gambar lama:", err);
-            });
-            imageId = req.file.filename;
+            // Jika ada file baru, hapus file lama dari storage
+            if (ootd.gambar) {
+                const oldImageFilename = ootd.gambar.split('/').pop();
+                fs.unlink(`uploads/${oldImageFilename}`, (err) => {
+                    if (err) console.error("Gagal menghapus file gambar lama:", err);
+                });
+            }
+
+            // PERBAIKAN #2: Buat URL lengkap untuk gambar yang baru
+            imageUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
         }
         
         const { namaOutfit, deskripsi } = req.body;
         await ootd.update({
             namaOutfit: namaOutfit || ootd.namaOutfit,
             deskripsi: deskripsi || ootd.deskripsi,
-            imageId: imageId
+            gambar: imageUrl // Simpan URL lengkap, bukan hanya nama file
         });
-        res.send({ message: "OOTD updated successfully!", ootd });
+        
+        // PERBAIKAN #1: Kirim kembali objek 'ootd' yang sudah diupdate secara langsung
+        res.send(ootd);
 
     } catch (error) {
         res.status(500).send({ message: error.message });
